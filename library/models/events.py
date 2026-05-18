@@ -16,6 +16,8 @@ class Event(models.Model):
         related_name='events'
     )
 
+    def __str__(self):
+        return f" {self.title} ({self.date})"
 
 class EventParticipant(models.Model):
     event = models.ForeignKey(
@@ -28,3 +30,7 @@ class EventParticipant(models.Model):
         related_name='events'
     )
     registration_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        users = [user.username for user in self.member.all()]
+        return f"EventParticipants: {users} {self.registration_date}"
